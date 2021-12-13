@@ -4,13 +4,13 @@
       <h3>{{ calculation }}</h3>
     </div>
     <div class="screen-member">
-      <h1>{{ result }}</h1>
+      <h1>{{ formatedResult }}</h1>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   props: {
@@ -23,16 +23,10 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
-    const computedResult = computed(() => {
-      if (isNaN(+props.result)) {
-        return "0";
-      }
-      return new Intl.NumberFormat("fr-FR").format(+props.result);
-    });
-    return {
-      computedResult,
-    };
+  computed: {
+    formatedResult(): string {
+      return new Intl.NumberFormat("fr-FR").format(+this.result);
+    },
   },
 });
 </script>
